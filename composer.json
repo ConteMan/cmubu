@@ -1,0 +1,33 @@
+{
+    "name": "conte/cmubu",
+    "description": "api for mubu",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Conte",
+            "email": "boxiaozhi.bolu@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "7.0.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "predis/predis": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Boxiaozhi\\Cmubu\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Boxiaozhi\\Cmubu\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Boxiaozhi\\Cmubu\\CmubuServiceProvider"
+            ]
+        }
+    }
+}
