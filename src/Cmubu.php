@@ -6,8 +6,6 @@
 
 namespace Boxiaozhi\Cmubu;
 
-use TheSeer\Tokenizer\Exception;
-
 class Cmubu
 {
     private $cmubu;
@@ -36,8 +34,13 @@ class Cmubu
     public function docContent($docId)
     {
         if(!$docId){
-            throw new Exception('请传递 docId', 404);
+            throw new \Exception('请传递 docId', 404);
         }
         return $this->cmubu->docContent($docId);
+    }
+
+    public function dataFormat($data)
+    {
+        return $this->cmubu->dataFormat($data);
     }
 }
