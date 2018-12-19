@@ -87,7 +87,7 @@ class Cmubu
      * @return array
      * @throws \Exception
      */
-    public function docInfoByName($folderId, $name, $type='floders')
+    public function docInfoByFolderName($folderId, $name, $type='floders')
     {
         $listData = $this->docList($folderId);
         if(!$listData) return [];
