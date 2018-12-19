@@ -146,15 +146,4 @@ class CmubuQueryService
         $response = $this->client->request($method, $uri, $param);
         return json_decode($response->getBody(), true);
     }
-
-    /**
-     * 数据格式化
-     * @param $data
-     * @return mixed
-     */
-    public function dataFormat($data)
-    {
-        $data = json_decode($data['data']['definition'], true);
-        return isset($data['nodes']) ? $data['nodes'] : $data;
-    }
 }
