@@ -1,10 +1,6 @@
 <?php
-/**
- * Date: 2018/10/24
- * Time: 22:17
- */
 
-namespace Boxiaozhi\Cmubu;
+namespace Cmubu;
 
 class Cmubu
 {

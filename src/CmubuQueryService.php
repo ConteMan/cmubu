@@ -1,14 +1,9 @@
 <?php
-/**
- * Date: 2018/10/24
- * Time: 22:19
- */
 
-namespace Boxiaozhi\Cmubu;
+namespace Cmubu;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\CookieJar;
-use Illuminate\Support\Facades\Redis;
 use \Exception;
 
 class CmubuQueryService
@@ -21,12 +16,12 @@ class CmubuQueryService
 
     const CLIENT_OPTIONS = [];
 
-    public function __construct()
+    public function __construct($config)
     {
-        $userId   = config('cmubu.username');
-        $password = config('cmubu.password');
+        $userId   = $config['username'];
+        $password = $config['password'];
         if(!$userId || !$password) {
-            throw new Exception('请检查用户名和密码设置', 500);
+            throw new Exception('need username and password');
         }
         //缓存
         $this->redis   = Redis::connection(config('cmubu.redis_config'));
