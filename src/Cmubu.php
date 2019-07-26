@@ -6,17 +6,29 @@ class Cmubu
 {
     private $cmubu;
 
-    public function __construct()
+    public function __construct($config)
     {
-        $this->cmubu = new CmubuQueryService();
+        $this->cmubu = new CmubuQuery($config);
     }
 
     /**
-     * 根据 folder ID 获取文档列表
+     * get cookies
+     *
+     * @return array
+     */
+    public function cookies()
+    {
+        return $this->cmubu->cookies();
+    }
+
+    /**
+     * get doc list by folder ID 
+     *
      * @param string $folderId
      * @param string $sort
      * @param string $keywords
      * @param string $source
+     *
      * @return array
      * @throws \Exception
      */
@@ -30,15 +42,17 @@ class Cmubu
     }
 
     /**
-     * 根据 doc ID 获取文档内容
+     * get doc content by doc ID
+     *
      * @param $docId
+     *
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function docContent($docId)
     {
         if(!$docId){
-            throw new \Exception('请传递 docId 参数');
+            throw new \Exception('need docId');
         }
         $data = $this->cmubu->docContent($docId);
         if($data['code'] != 0){
@@ -49,14 +63,17 @@ class Cmubu
     }
 
     /**
-     * 根据名字获取文档信息
-     * @param $name
+     * get doc info by path
+     *
+     * @param $name 
+     * @param $type folders,documents
+     *
      * @return array
      */
     public function docInfoByPath($name, $type='documents')
     {
         if(!in_array($type, ['folders', 'documents'])){
-            throw new \Exception('type 参数值为[folders]或[documents]');
+            throw new \Exception('type error');
         }
         $pathArr = explode('/', $name);
         $res = [];
@@ -78,8 +95,10 @@ class Cmubu
     }
 
     /**
-     * 根据名称获取文档信息
+     * get doc info by folerId and folderName
+     *
      * @param $name
+     *
      * @return array
      * @throws \Exception
      */
