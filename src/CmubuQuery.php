@@ -9,10 +9,11 @@ use \Exception;
 class CmubuQuery
 {
     private $client = null;
-    private $cookies = [];
+    private $cookies = null;
     private $username = '';
     private $password = '';
     private $baseUrl = 'https://mubu.com';
+    private $baseOption = [];
 
     const CLIENT_OPTIONS = [];
 
@@ -24,7 +25,11 @@ class CmubuQuery
         $this->username = $config['username'];
         $this->password = $config['password'];
         $this->cookies = isset($config['cookies']) ? $config['cookies'] : [];
-        $this->client = new GuzzleClient(['base_uri' => $this->baseUrl, 'cookies' => true, 'verify' => false]);
+        $this->baseOption = ['base_uri' => $this->baseUrl, 'cookies' => true, 'verify' => false];
+        if($this->cookies){
+            $this->baseOption['cookies'] = new CookieJar(true, $this->cookies);
+        }
+        $this->client = new GuzzleClient($this->baseOption);
         if(!$this->cookies){
             $this->login();
         }
@@ -63,8 +68,11 @@ class CmubuQuery
         }
 
         $cookieJar = $this->client->getConfig('cookies');
-        $cookieArr = $cookieJar->toArray();
 
+        $this->baseOption['cookies'] = $cookieJar;
+        $this->client = new GuzzleClient($this->baseOption);
+
+        $cookieArr = $cookieJar->toArray();
         $this->cookies = $cookieArr;
         return $cookieArr;
     }
@@ -76,14 +84,10 @@ class CmubuQuery
      */
     public function docList($folderId='', $sort='time', $keywords='', $source='')
     {
-        $cookies =  $this->cookies;
-        $cookie_jar = new CookieJar(true, $cookies);
-
         $method   = 'POST';
         $uri      = '/api/list/get';
         $param    = [
             'query' => [
-                'cookies'  => $cookie_jar,
                 'folderId' => $folderId,
                 'sort'     => $sort,
                 'keywords' => $keywords,
@@ -103,14 +107,10 @@ class CmubuQuery
      */
     public function docContent($docId)
     {
-        $cookies =  $this->cookies;
-        $cookie_jar = new CookieJar(true, $cookies);
-
         $method   = 'POST';
         $uri      = '/api/document/get';
         $param    = [
             'query' => [
-                'cookies' => $cookie_jar,
                 'docId'   => $docId,
             ]
         ];
