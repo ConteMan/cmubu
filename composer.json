@@ -1,0 +1,27 @@
+{
+    "name": "boxiaozhi/cmubu",
+    "description": "api for mubu",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Conte",
+            "email": "boxiaozhi.bolu@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cmubu\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cmubu\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+    }
+}
