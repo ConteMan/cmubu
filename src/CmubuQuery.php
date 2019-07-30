@@ -24,7 +24,7 @@ class CmubuQuery
         $this->username = $config['username'];
         $this->password = $config['password'];
         $this->cookies = isset($config['cookies']) ? $config['cookies'] : [];
-        $this->client = new GuzzleClient(['base_uri' => $this->baseUrl, 'cookies' => true]);
+        $this->client = new GuzzleClient(['base_uri' => $this->baseUrl, 'cookies' => true, 'verify' => false]);
         if(!$this->cookies){
             $this->login();
         }
