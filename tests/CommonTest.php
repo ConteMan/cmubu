@@ -5,12 +5,12 @@ require '../vendor/autoload.php';
 use Cmubu\Cmubu;
 
 $config = [
-    'username' => '',
-    'password' => '',
-    'cookies' => [],
+    'username' => $argv[1],
+    'password' => $argv[2],
+    'cookies' => '',
 ];
-$folderName = '';
-$docName = '';
+$folderName = $argv[3];
+$docName = $argv[4];
 
 try{
     $cmubu = new Cmubu($config);
